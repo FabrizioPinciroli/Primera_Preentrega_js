@@ -1,103 +1,129 @@
-// Declaración de las variables del programa
-let dinero = parseFloat(prompt("Bienvendio a la Pizzería de Fabrizio, indique el dinero que lleva."));
-const DINERO_INICIAL = dinero;
+// Variables para el carrito de compras y total
+let carrito = [];
 let total = 0;
-let pedido = [];
 
-const Fugazzeta = 3500;
-const jamon_queso = 4000;
-const cuatro_quesos = 4500;
+// Menú de pizzas y extras con imágenes
+const pizzas = [
+    { nombre: 'Fugazzeta', precio: 3500, imagen: 'img/fugazzetta.jpg' },
+    { nombre: 'Jamón y Queso', precio: 4000, imagen: 'img/jamon.jpg' },
+    { nombre: 'Rucula', precio: 4500, imagen: 'img/rucula.jpg' },
+    { nombre: 'Napolitana', precio: 3200, imagen: 'img/napolitana.jpg' },
+    { nombre: 'Cantimpalo', precio: 3600, imagen: 'img/cantimpalo.jpg' },
+    { nombre: 'Anchoas', precio: 3700, imagen: 'img/anchoas.jpg' },
+    { nombre: 'Provolone', precio: 3800, imagen: 'img/provolone.jpg' },
+    { nombre: 'Muzarella', precio: 3400, imagen: 'img/muzzarella.jpg' }
+];
 
-const extra_queso = 500;
-const champinones = 900;
-const panceta = 1200;
+const extras = [
+    { nombre: 'Extra Queso', precio: 500, imagen: 'img/extraQueso.jpeg' },
+    { nombre: 'Champiñones', precio: 900, imagen: 'img/champi.jpg' },
+    { nombre: 'Panceta', precio: 1200, imagen: 'img/bacon.jpeg' }
+];
 
-// Función para mostrar el menú de pizzas y gestionar la elección
-function seleccionarPizza() {
-    console.log("-> Pizzería de Fabrizio <-\n");
-    while (true) {
-        // Menú de pizzas
-        console.log(`1 - Fugazzeta - ${Fugazzeta}$`);
-        console.log(`2 - Jamón y queso - ${jamon_queso}$`);
-        console.log(`3 - Cuatro quesos - ${cuatro_quesos}$`);
+// Mostrar pizzas en el DOM
+const pizzasDiv = document.getElementById('pizzas');
+pizzas.forEach(pizza => {
+    const pizzaDiv = document.createElement('div');
+    pizzaDiv.innerHTML = `
+        <img src="${pizza.imagen}" alt="${pizza.nombre}">
+        <button data-nombre="${pizza.nombre}" data-precio="${pizza.precio}">
+            ${pizza.nombre} - $${pizza.precio}
+        </button>
+    `;
+    pizzasDiv.appendChild(pizzaDiv);
+});
 
-        // Almacena la elección del usuario
-        let eleccion = parseInt(prompt("Por favor, seleccioná tu pizza con un número de opción.\n"));
+// Mostrar extras en el DOM
+const extrasDiv = document.getElementById('extras');
+extras.forEach(extra => {
+    const extraDiv = document.createElement('div');
+    extraDiv.innerHTML = `
+        <img src="${extra.imagen}" alt="${extra.nombre}">
+        <button>${extra.nombre} - $${extra.precio}</button>
+    `;
+    extraDiv.querySelector('button').addEventListener('click', () => agregarAlCarrito(extra));
+    extrasDiv.appendChild(extraDiv);
+});
 
-        // Se calcula el cambio y el total, se indica la pizza elegida, se añade a la lista
-        switch (eleccion) {
-            case 1:
-                procesarPedido("Fugazzeta", Fugazzeta);
-                return;
-            case 2:
-                procesarPedido("Jamón y queso", jamon_queso);
-                return;
-            case 3:
-                procesarPedido("Cuatro quesos", cuatro_quesos);
-                return;
-            default:
-                console.log("Opción incorrecta. Seleccioná una opción del 1 al 3.");
-        }
+// Agregar productos al carrito
+function agregarAlCarrito(producto) {
+    carrito.push(producto);
+    total += producto.precio;
+    actualizarCarrito();
+    guardarEnStorage();
+}
+
+// Actualizar carrito en el DOM
+function actualizarCarrito() {
+    const carritoDiv = document.getElementById('carrito');
+    carritoDiv.innerHTML = '';
+    carrito.forEach(producto => {
+        const productoDiv = document.createElement('div');
+        productoDiv.textContent = `${producto.nombre} - $${producto.precio}`;
+        carritoDiv.appendChild(productoDiv);
+    });
+
+    const totalDiv = document.createElement('div');
+    totalDiv.textContent = `Total: $${total}`;
+    totalDiv.classList.add('total');
+    carritoDiv.appendChild(totalDiv);
+}
+
+// Guardar el carrito en localStorage
+function guardarEnStorage() {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    localStorage.setItem('total', total);
+}
+
+// Recuperar el carrito del localStorage
+function recuperarCarrito() {
+    const carritoGuardado = JSON.parse(localStorage.getItem('carrito'));
+    const totalGuardado = localStorage.getItem('total');
+
+    if (carritoGuardado) {
+        carrito = carritoGuardado;
+        total = parseFloat(totalGuardado);
+        actualizarCarrito();
     }
 }
 
-// Función para procesar el pedido de la pizza o ingrediente
-function procesarPedido(nombre, precio) {
-    console.log(`Elegiste la pizza de ${nombre}.\nTotal a pagar ${precio}$.`);
-    dinero -= precio;
-    console.log(`Te quedan ${dinero.toFixed(2)}$.`);
-    total += precio;
-    pedido.push(`${nombre} - ${precio}$`);
+// Vaciar carrito
+document.getElementById('vaciarCarrito').addEventListener('click', () => {
+    carrito = [];
+    total = 0;
+    localStorage.clear();
+    actualizarCarrito();
+});
+
+// Finalizar pedido
+document.getElementById('finalizarPedido').addEventListener('click', () => {
+    const resumenPedido = document.getElementById('resumenPedido');
+    resumenPedido.textContent = `El total de tu pedido es $${total}. Tu pedido llegará en 30 minutos.`;
+    localStorage.clear();
+    carrito = [];
+    total = 0;
+    actualizarCarrito();
+});
+
+// Recuperar carrito al cargar la página
+document.addEventListener('DOMContentLoaded', recuperarCarrito);
+
+// Función de orden superior: Filtrar productos caros
+function filtrarProductosCaros() {
+    return carrito.filter(producto => producto.precio > 3000);
 }
 
-// Función para seleccionar ingredientes adicionales
-function seleccionarIngredientes() {
-    while (true) {
-        // Menú de ingredientes
-        console.log(`1 - Extra de queso - ${extra_queso}$`);
-        console.log(`2 - Champiñones - ${champinones}$`);
-        console.log(`3 - Panceta - ${panceta}$`);
-        console.log("4 - No añadir nada extra y pagar.");
-
-        // Almacena la elección del usuario
-        let eleccion = parseInt(prompt("Si querés algún ingrediente extra, seleccionalo.\n"));
-
-        // Se calcula el cambio y el total, se indican los ingredientes elegidos, se añaden a la lista
-        switch (eleccion) {
-            case 1:
-                procesarPedido("Extra de queso", extra_queso);
-                break;
-            case 2:
-                procesarPedido("Champiñones", champinones);
-                break;
-            case 3:
-                procesarPedido("Panceta", panceta);
-                break;
-            case 4:
-                console.log("De acuerdo, no se añade nada extra.");
-                return;
-            default:
-                console.log("Opción incorrecta. Seleccioná una opción del 1 al 4.");
-        }
-    }
+// Función de orden superior: Calcular total con descuento
+function calcularTotalConDescuento() {
+    const descuento = 0.1; // 10%
+    return carrito.reduce((acumulador, producto) => acumulador + producto.precio * (1 - descuento), 0);
 }
 
-// Función para imprimir el ticket final
-function imprimirTicket() {
-    if (total <= DINERO_INICIAL) {
-        console.log("\n--- TU PEDIDO ---");
-        console.log(`El total de su pedido es: ${total}$.`);
-        console.log(`Tu vuelto: ${dinero}$.\n`);
-
-        pedido.forEach(item => console.log(`-${item}.`));
-
-        console.log("\n¡Que lo disfrutes!");
-    } else {
-        console.log("No te alcanza el dinero para todo eso. Por favor, vuelva a empezar.");
-    }
-}
-
-// Ejecución del programa
-seleccionarPizza();
-seleccionarIngredientes();
-imprimirTicket();
+// Agregar eventos a los botones de pizza
+document.querySelectorAll('#pizzas button').forEach(button => {
+    button.addEventListener('click', () => {
+        const nombre = button.getAttribute('data-nombre');
+        const precio = parseFloat(button.getAttribute('data-precio'));
+        agregarAlCarrito({ nombre, precio });
+    });
+});
