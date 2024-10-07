@@ -1,0 +1,102 @@
+{
+    "productos": [
+        {
+            "id": 1,
+            "nombre": "Pizza Muzarella",
+            "descripcion": "Pizza clásica con abundante queso muzarella, salsa de tomate y orégano.",
+            "precio": 7000,
+            "imagen": "../Assets/muzzarella.jpg"
+        },
+        {
+            "id": 2,
+            "nombre": "Pizza Provolone",
+            "descripcion": "Pizza con base de provolone derretido, aceitunas y un toque de ajo.",
+            "precio": 7200,
+            "imagen": "../Assets/provolone.jpg"
+        },
+        {
+            "id": 3,
+            "nombre": "Pizza de Anchoas",
+            "descripcion": "Pizza con salsa de tomate, muzarella y filetes de anchoas.",
+            "precio": 8200,
+            "imagen": "../Assets/anchoas.jpg"
+        },
+        {
+            "id": 4,
+            "nombre": "Pizza de Champiñones",
+            "descripcion": "Pizza con champiñones frescos, queso muzarella y un toque de perejil.",
+            "precio": 8500,
+            "imagen": "../Assets/champi.jpg"
+        },
+        {
+            "id": 5,
+            "nombre": "Pizza Provolone Extra Queso",
+            "descripcion": "Pizza provolone con extra de queso muzarella y cheddar.",
+            "precio": 8500,
+            "imagen": "../Assets/extraQueso.jpeg"
+        },
+        {
+            "id": 6,
+            "nombre": "Pizza Rúcula",
+            "descripcion": "Pizza con hojas frescas de rúcula, queso parmesano y un toque de aceite de oliva.",
+            "precio": 8500,
+            "imagen": "../Assets/rucula.jpg"
+        },
+        {
+            "id": 7,
+            "nombre": "Pizza Cantimpalo",
+            "descripcion": "Pizza con rodajas de cantimpalo, queso muzarella y un toque de orégano.",
+            "precio": 8500,
+            "imagen": "../Assets/cantimpalo.jpg"
+        },
+        {
+            "id": 8,
+            "nombre": "Pizza Bacon",
+            "descripcion": "Pizza con trozos crujientes de bacon, queso cheddar y salsa barbacoa.",
+            "precio": 9000,
+            "imagen": "../Assets/bacon.jpeg"
+        },
+        {
+            "id": 9,
+            "nombre": "Pizza Fugazzetta",
+            "descripcion": "Pizza clásica argentina con mucha cebolla y queso muzarella.",
+            "precio": 8000,
+            "imagen": "../Assets/fugazzetta.jpg"
+        },
+        {
+            "id": 10,
+            "nombre": "Pizza Jamón",
+            "descripcion": "Pizza con jamón cocido, salsa de tomate y queso muzarella.",
+            "precio": 8000,
+            "imagen": "../Assets/jamon.jpg"
+        },
+        {
+            "id": 11,
+            "nombre": "Pizza Napolitana",
+            "descripcion": "Pizza con rodajas de tomate, ajo y albahaca fresca.",
+            "precio": 8200,
+            "imagen": "../Assets/napolitana.jpg"
+        },
+        {
+            "id": 12,
+            "nombre": "Combo 1 - Pizza Muzarella + Bebida",
+            "descripcion": "Una pizza muzarella y una bebida de tu elección.",
+            "precio": 10200,
+            "imagen": "../Assets/combo1.jpeg"
+        },
+        {
+            "id": 13,
+            "nombre": "Combo 2 - 2 pizzas + Bebida",
+            "descripcion": "Pizza provolone con una bebida incluída.",
+            "precio": 18000,
+            "imagen": "../Assets/combo2.jpg"
+        },
+        {
+            "id": 14,
+            "nombre": "Bebida Gaseosa 500ml",
+            "descripcion": "Bebida gaseosa de 500ml.",
+            "precio": 1500,
+            "imagen": "../Assets/bebida_gaseosa.jpeg"
+        }
+    ]
+}

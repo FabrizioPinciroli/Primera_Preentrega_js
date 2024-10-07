@@ -25,21 +25,6 @@ header {
     text-align: center;
 }
 
-.nav-right {
-    position: absolute;
-    right: 20px;
-}
-
-.carrito-icon {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.carrito-icon img {
-    width: 32px;
-}
-
 main {
     padding: 20px;
     max-width: 1200px;
@@ -129,7 +114,6 @@ footer p {
     font-size: 1.5em;
     font-weight: bold;
     color: #f8b400;
-    /* Amarillo */
     text-align: right;
     margin-top: 10px;
 }
@@ -144,4 +128,33 @@ footer p {
     text-align: center;
     margin-top: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .productos div {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .btn {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+    }
+
+    .logo h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
 }
